@@ -22,7 +22,6 @@ export default class Webview extends component {
         const options = this.toJSON();
 
         options.el = this.element;
-        options.name = options.name.toLowerCase();
         this.vm = new Vue(options);
         this.vm.$webview = this;
     }

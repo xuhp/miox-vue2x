@@ -1,16 +1,35 @@
 
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
-import { engine, webview } from './index';
+import { engine, webview, component } from './index';
+
+class Button extends component {
+    constructor(){
+        super();
+    }
+
+    render(h){
+        return (
+            <p>button</p>
+        )
+    }
+}
 
 class A extends webview {
     constructor(el){
         super(el);
     }
 
+    components(components){
+        components.cutton = Button;
+    }
+
     render(h){
         return (
-            <div>111</div>
+            <span v-forward="/list">
+                <cutton />
+                dasf
+            </span>
         )
     }
     

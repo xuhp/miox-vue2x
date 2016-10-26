@@ -233,6 +233,10 @@ export default class Component extends EventEmitter {
             delete this.__dataBase__[field];
         });
 
+        if ( this.__dataBase__.name ){
+            this.__dataBase__.name = this.__dataBase__.name.toLowerCase();
+        }
+
         return this.__dataBase__;
     }
 }

@@ -37,7 +37,7 @@ result.module = {};
  * @type {*[]}
  */
 result.module.loaders = [
-    { test: /\.js$/, exclude:exclude, loader: "babel" },
+    { test: /\.js|\.jsx$/, exclude:exclude, loader: "babel" },
     { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css!postcss") },
     { test: /\.scss$/, loader: ExtractTextPlugin.extract("style", "css!postcss!sass")  }
 ];

@@ -4,7 +4,8 @@
 
 import { Promise } from 'es6-promise';
 import isClass from 'is-class';
-// import Vue from 'vue';
+import Vue from 'vue';
+import { makeDirectiveUrlParams, toLinkString } from './util';
 
 export default class Engine {
     constructor(ctx){
@@ -29,14 +30,14 @@ export default class Engine {
     }
 
     install() {
-        // const ctx = this.ctx;
-        // Vue.prototype.$ctx = ctx;
-        // ['createForward', 'createBackward', 'forward', 'backward'].forEach( which => {
-        //     if ( ctx[which] ){
-        //         Vue.prototype['$' + which] = url => ctx[which](url);
-        //         Vue.directive(toLinkString(which), PatchURL(which, ctx));
-        //     }
-        // });
+        const ctx = this.ctx;
+        Vue.prototype.$ctx = ctx;
+        ['createForward', 'createBackward', 'forward', 'backward'].forEach( which => {
+            if ( ctx[which] ){
+                Vue.prototype['$' + which] = url => ctx[which](url);
+                Vue.directive(toLinkString(which), makeDirectiveUrlParams(which, ctx));
+            }
+        });
     }
 
     createWebviewRoot(){
