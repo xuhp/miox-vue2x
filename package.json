@@ -12,9 +12,12 @@
   "devDependencies": {
     "autoprefixer": "^6.5.0",
     "babel-core": "^6.14.0",
-    "babel-loader": "^6.2.5",
     "babel-eslint": "^7.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.1",
+    "babel-loader": "^6.2.5",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.1.0",
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-stage-0": "^6.5.0",
@@ -24,6 +27,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "miox-animate": "0.0.10",
+    "miox-core": "0.0.10",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
     "rimraf": "^2.5.4",
@@ -35,5 +40,11 @@
   "project": {
     "name": "miox.vue2x",
     "library": "mioxVue2x"
+  },
+  "dependencies": {
+    "es6-promise": "^4.0.5",
+    "events": "^1.1.1",
+    "is-class": "0.0.4",
+    "vue": "^2.0.3"
   }
 }

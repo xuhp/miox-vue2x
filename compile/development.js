@@ -13,7 +13,7 @@ const result = {};
  * 配置启动文件地址
  * @type {*|Promise.<*>}
  */
-result.entry = ['babel-polyfill', path.resolve(__dirname, '../src/test')];
+result.entry = ['babel-polyfill', path.resolve(__dirname, '../src/test.jsx')];
 
 /**
  * 配置输出文件地址和输出文件模式
@@ -32,7 +32,7 @@ result.module = {};
  * @type {*[]}
  */
 result.module.loaders = [
-    { test: /\.js$/, exclude: exclude, loader: "babel!eslint" },
+    { test: /\.js|\.jsx$/, exclude: exclude, loader: "babel" },
     { test: /\.css$/, loader: "style!css!postcss" },
     { test: /\.scss$/, loader: "style!css!postcss!sass" }
 ];
