@@ -3,7 +3,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Params, Events } from './params';
+import { Params, Events, Inits } from './params';
 import { each, compile, isFunction, isComponent, isVueObject, isObject } from './util';
 
 export default class Component extends EventEmitter {
@@ -72,6 +72,10 @@ export default class Component extends EventEmitter {
         this.__defineTemplateCompile__();
         this.__defineFunctionalCompile__();
         this.__defineRenderCompile__();
+
+        Inits.forEach(init => {
+            init(this.__dataBase__);
+        });
     }
 
     /**
@@ -125,14 +129,14 @@ export default class Component extends EventEmitter {
      * @private
      */
     __defineExtendCompile__(){
-        if ( isFunction(this['extends']) ){
-            const result = this['extends']();
+        if ( isFunction(this.extends) ){
+            const result = this.extends();
 
             if ( result ){
                 this.__dataBase__.extends = result;
             }
-        } else if ( isVueObject(this['extends']) ) {
-            this.__dataBase__.extends = this['extends'];
+        } else if ( isVueObject(this.extends) ) {
+            this.__dataBase__.extends = this.extends;
         } else {
             return;
         }

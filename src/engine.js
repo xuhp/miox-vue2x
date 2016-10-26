@@ -6,6 +6,7 @@ import { Promise } from 'es6-promise';
 import isClass from 'is-class';
 import Vue from 'vue';
 import { makeDirectiveUrlParams, toLinkString } from './util';
+import { Params, Events, Inits } from './params';
 
 export default class Engine {
     constructor(ctx){
@@ -50,5 +51,45 @@ export default class Engine {
         element.setAttribute('webview-key', this.ctx.req.nextKey);
 
         return wrapElement;
+    }
+
+    addParam(name){
+        Params.push(name);
+        return this;
+    }
+
+    addParams(...args){
+        args.forEach(arg => {
+            this.addParam(arg);
+        });
+        return this;
+    }
+
+    addEvent(name){
+        Events.push(name);
+        return this;
+    }
+
+    addEvents(...args){
+        args.forEach(arg => {
+            this.addEvent(arg);
+        });
+        return this;
+    }
+
+    addCompiler(fn){
+        if ( typeof fn === 'function' ){
+            Inits.push(fn);
+        }else{
+            throw new Error('addInit methods need a function object');
+        }
+        return this;
+    }
+
+    addCompilers(...args){
+        args.forEach(arg => {
+            this.addCompiler(arg);
+        });
+        return this;
     }
 }
