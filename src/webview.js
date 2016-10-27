@@ -16,6 +16,16 @@ export default class Webview extends component {
                     : null;
             }
         });
+        
+        this.on('beforeDestroy', () => {
+            this.currentNode = this.el;
+        });
+        
+        this.on('destroyed', () => {
+            if ( this.currentNode ){
+                this.currentNode.parentNode.removeChild(this.currentNode);
+            }
+        })
     }
 
     __defineCompile__(){
