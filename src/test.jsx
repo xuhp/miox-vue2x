@@ -1,11 +1,13 @@
 
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
-import { engine, webview, component } from './index';
+import { Engine, Webview, Component, Regist } from './index';
 
-class Button extends component {
-    constructor(){
-        super();
+console.log(Regist)
+
+class Button extends Component {
+    constructor(options){
+        super(options);
     }
 
     render(h){
@@ -15,7 +17,7 @@ class Button extends component {
     }
 }
 
-class A extends webview {
+class A extends Webview {
     constructor(el){
         super(el);
     }
@@ -37,7 +39,7 @@ class A extends webview {
 
 BootStrap(async app => {
     app.animate(Animate());
-    app.engine(engine);
+    app.engine(Engine);
     app.use(async ctx => {
         await ctx.render(A);
     })

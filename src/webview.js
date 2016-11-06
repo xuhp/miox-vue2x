@@ -2,45 +2,65 @@
  * Created by evio on 16/10/26.
  */
 
-import component from './component';
 import Vue from 'vue';
 
-export default class Webview extends component {
+export default class Webview extends Vue {
     constructor(el){
-        super();
-        this.element = el;
-        Object.defineProperty(this, 'el', {
-            get(){
-                return this.$vm
-                    ? this.$vm.$el.parentNode
-                    : null;
-            }
-        });
-        
-        this.on('beforeDestroy', () => {
-            this.currentNode = this.el;
-        });
-        
-        this.on('destroyed', () => {
-            if ( this.currentNode ){
-                this.currentNode.parentNode.removeChild(this.currentNode);
-            }
-        })
+        super(el);
     }
 
-    __defineCompile__(){
-        const options = this.toJSON();
-
-        options.el = this.element;
-        this.vm = new Vue(options);
-        this.vm.$webview = this;
+    get el(){
+        return this.$el.parentNode;
     }
 
-    __defineDestroy__(){
-        this.vm && this.vm.$destroy();
+    beforeCreate(){
+        this.$emit('webview:beforeCreate');
+    }
+
+    created(){
+        this.$emit('webview:created');
+    }
+
+    beforeMount(){
+        this.$emit('webview:beforeMount');
+    }
+
+    mounted(){
+        this.$emit('webview:mounted');
+        setTimeout(() => {
+            this.$emit('webview:ready');
+        });
+    }
+
+    beforeUpdate(){
+        this.$emit('webview:beforeUpdate');
+    }
+
+    updated(){
+        this.$emit('webview:updated');
+    }
+
+    activated(){
+        this.$emit('webview:activated');
+    }
+
+    deactivated(){
+        this.$emit('webview:deactivated');
+    }
+
+    beforeDestroy(){
+        this.currentNode = this.el;
+        this.$emit('webview:beforeDestroy');
+    }
+
+    destroyed(){
+        if ( this.currentNode ){
+            this.currentNode.parentNode.removeChild(this.currentNode);
+        }
+        this.$emit('webview:destroyed');
     }
 
     destroy(){
-        this.__defineDestroy__();
+        this.$destroy();
     }
 }
