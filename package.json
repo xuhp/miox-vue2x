@@ -1,6 +1,6 @@
 {
   "name": "miox-vue2x",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "miox-vue2x",
   "main": "src/index.js",
   "author": "沈赟杰",
@@ -28,7 +28,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "miox-animate": "0.0.10",
-    "miox-core": "^0.1.1",
+    "miox-core": "^0.1.5",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
     "rimraf": "^2.5.4",
@@ -42,8 +42,8 @@
     "library": "mioxVue2x"
   },
   "dependencies": {
-    "es6-promise": "^4.0.5",
-    "is-class": "0.0.4",
-    "miox-vue2x-classify": "0.0.2"
+    "es6-promise": "*",
+    "is-class": "*",
+    "miox-vue2x-classify": "*"
   }
 }

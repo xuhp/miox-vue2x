@@ -14,50 +14,70 @@ export default class Webview extends Vue {
     }
 
     beforeCreate(){
-        this.$emit('webview:beforeCreate');
+        if ( typeof this.webviewWillCreate === 'function' ){
+            this.webviewWillCreate();
+        }
     }
 
     created(){
-        this.$emit('webview:created');
+        if ( typeof this.webviewDidCreate === 'function' ){
+            this.webviewDidCreate();
+        }
     }
 
     beforeMount(){
-        this.$emit('webview:beforeMount');
+        if ( typeof this.webviewWillMount === 'function' ){
+            this.webviewWillMount();
+        }
     }
 
     mounted(){
-        this.$emit('webview:mounted');
+        if ( typeof this.webviewDidMount === 'function' ){
+            this.webviewDidMount();
+        }
         setTimeout(() => {
             this.$emit('webview:ready');
         });
     }
 
     beforeUpdate(){
-        this.$emit('webview:beforeUpdate');
+        if ( typeof this.webviewWillUpdate === 'function' ){
+            this.webviewWillUpdate();
+        }
     }
 
     updated(){
-        this.$emit('webview:updated');
+        if ( typeof this.webviewDidUpdate === 'function' ){
+            this.webviewDidUpdate();
+        }
     }
 
     activated(){
-        this.$emit('webview:activated');
+        if ( typeof this.webviewDidActive === 'function' ){
+            this.webviewDidActive();
+        }
     }
 
     deactivated(){
-        this.$emit('webview:deactivated');
+        if ( typeof this.webviewDidDeActive === 'function' ){
+            this.webviewDidDeActive();
+        }
     }
 
     beforeDestroy(){
         this.currentNode = this.el;
-        this.$emit('webview:beforeDestroy');
+        if ( typeof this.webviewWillDestroy === 'function' ){
+            this.webviewWillDestroy();
+        }
     }
 
     destroyed(){
         if ( this.currentNode ){
             this.currentNode.parentNode.removeChild(this.currentNode);
         }
-        this.$emit('webview:destroyed');
+        if ( typeof this.webviewDidDestroy === 'function' ){
+            this.webviewDidDestroy();
+        }
     }
 
     destroy(){

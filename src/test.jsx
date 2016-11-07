@@ -22,6 +22,10 @@ class A extends Webview {
         super(el);
     }
 
+    webviewDidMount(){
+        console.log('ok')
+    }
+
     components(components){
         components.cutton = Button;
     }
