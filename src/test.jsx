@@ -1,15 +1,10 @@
 
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
-import { Engine, Webview, Component, Regist } from './index';
+import { Engine, Webview, Component } from './index';
 
-console.log(Regist)
-
-class Button extends Component {
-    constructor(options){
-        super(options);
-    }
-
+@Component
+class Button {
     render(h){
         return (
             <p>button</p>
@@ -17,24 +12,18 @@ class Button extends Component {
     }
 }
 
+@Component({
+    components: {
+        btn: Button
+    }
+})
 class A extends Webview {
-    constructor(el){
-        super(el);
-    }
-
-    webviewDidMount(){
-        console.log('ok')
-    }
-
-    components(components){
-        components.cutton = Button;
-    }
-
+    a = 1;
     render(h){
         return (
             <span v-forward="/list">
-                <cutton />
-                dasf
+                <btn></btn>
+                dasf{this.a}
             </span>
         )
     }

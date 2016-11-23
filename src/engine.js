@@ -21,8 +21,14 @@ export default class Engine {
 
         return ctx.set(ctx.req.nextKey, await new Promise((resolve, reject) => {
             try{
-                const web = new webview(this.createWebviewRoot());
-                web.ctx = ctx;
+                const web = new webview({ el: this.createWebviewRoot() });
+                if ( !web.ctx ){
+                    Object.defineProperty(web, 'ctx', {
+                        get(){
+                            return ctx;
+                        }
+                    })
+                }
                 web.$on('webview:ready', function(){
                     resolve(this);
                 });
