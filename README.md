@@ -7,7 +7,7 @@
 ``` javascript
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
-import { Engine, Webview, Component } from './index';
+import { Engine, Webview, Component } from 'miox-vue2x';
 
 @Component
 class Button {
