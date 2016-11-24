@@ -1,13 +1,17 @@
 
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
-import { Engine, Webview, Component } from './index';
+import { Engine, Webview, Component, prop, life } from './index';
 
-@Component
+@Component({
+    props: {
+        msg: String
+    }
+})
 class Button {
     render(h){
         return (
-            <p>button</p>
+            <p>button{this.msg}</p>
         )
     }
 }
@@ -22,7 +26,7 @@ class A extends Webview {
     render(h){
         return (
             <span v-forward="/list">
-                <btn></btn>
+                <btn msg="hellpaaa"></btn>
                 dasf{this.a}
             </span>
         )
