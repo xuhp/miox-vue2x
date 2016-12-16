@@ -4,34 +4,6 @@
 
 import Vue from 'vue';
 import { Component, life } from 'miox-vue2x-classify';
-const events = [
-    'abort',
-    'blur',
-    'change',
-    'click',
-    'dblclick',
-    'error',
-    'focus',
-    'keypress',
-    'keydown',
-    'keyup',
-    'load',
-    'mousedown',
-    'mouseover',
-    'mouseout',
-    'mousemove',
-    'mouseup',
-    'resize',
-    'reset',
-    'select',
-    'submit',
-    'unload',
-    'input',
-    'touchstart',
-    'touchmove',
-    'touchend',
-    'touchcancel'
-];
 
 @Component
 export default class Webview extends Vue {
@@ -41,11 +13,6 @@ export default class Webview extends Vue {
     }
 
     @life('mounted') webviewDidMount(){
-        events.forEach(event => {
-            this.$el && this.$el.addEventListener(event, e => {
-                this.$emit(event, e);
-            });
-        });
         setImmediate(() => this.$emit('webview:ready'));
     }
 
