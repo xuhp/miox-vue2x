@@ -1,23 +1,20 @@
 /**
  * Created by evio on 16/10/26.
  */
+export const methods = ['forward', 'backward'];
 
 export const makeDirectiveUrlParams = function(method, ctx){
     return {
-        bind(el, binding, vnode){
+        bind(el, binding){
             el.addEventListener('click', binding.__patchURLCallback__ = () => {
-                if ( method === 'forward' && !binding.value ){
-                    return ctx.forward();
+                let methodName = method;
+                let modifiers = binding.modifiers || {};
+
+                if ( modifiers.create ){
+                    methodName = exchange('create-' + method);
                 }
-                if ( method === 'backward' && !binding.value ){
-                    return ctx.backward();
-                }
-                if ( !binding.value ) return;
-                if ( vnode.context.$root['$' + method] ){
-                    vnode.context.$root['$' + method](binding.value);
-                }else{
-                    throw new Error('miss method: $' + method);
-                }
+
+                ctx[methodName](binding.value || undefined);
             });
         },
         unbind(el, binding){
@@ -29,4 +26,10 @@ export const makeDirectiveUrlParams = function(method, ctx){
 
 export const toLinkString = function(s){
     return s.replace(/([A-Z])/g,"-$1").toLowerCase()
+};
+
+export const exchange = s1 => {
+    return s1.replace(/\-(\w)/g, function(all, letter){
+        return letter.toUpperCase();
+    });
 };
