@@ -7,7 +7,6 @@ import { Component, life } from 'miox-vue2x-classify';
 
 @Component
 export default class Webview extends Vue {
-
     get el(){
         return this.$el.parentNode;
     }

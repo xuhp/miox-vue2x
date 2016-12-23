@@ -6,14 +6,16 @@ import { Promise } from 'es6-promise';
 import isClass from 'is-class';
 import Vue from 'vue';
 import { makeDirectiveUrlParams, toLinkString, methods } from './util';
+import Webview from './webview';
 
 export default class Engine {
     constructor(ctx){
         this.ctx = ctx;
     }
 
-    async create(webview){
+    async create(webview, options){
         const ctx = this.ctx;
+        const isComponent = !!options;
 
         if ( !isClass(webview) && typeof webview !== 'function' ){
             throw new Error('`webview` argument is not a class object.');
@@ -21,14 +23,23 @@ export default class Engine {
 
         return ctx.set(ctx.req.nextKey, await new Promise((resolve, reject) => {
             try{
-                const web = new webview({ el: this.createWebviewRoot() });
-                if ( !web.ctx ){
-                    Object.defineProperty(web, 'ctx', {
+                const Arguments = { el: this.createWebviewRoot() };
+
+                if ( isComponent ) {
+                    Arguments.propsData = options || {};
+                    Arguments.extends = Webview;
+                }
+
+                const web = new webview(Arguments);
+
+                if ( !isComponent && !web.$ctx ) {
+                    Object.defineProperty(web, '$ctx', {
                         get(){
                             return ctx;
                         }
                     })
                 }
+
                 web.$on('webview:ready', function(){
                     resolve(this);
                 });
@@ -40,7 +51,6 @@ export default class Engine {
 
     install() {
         const ctx = this.ctx;
-        Vue.prototype.$ctx = ctx;
         methods.forEach( which => {
             if ( ctx[which] ){
                 Vue.prototype['$' + which] = url => ctx[which](url);

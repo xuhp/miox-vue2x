@@ -2,7 +2,6 @@
 import BootStrap from 'miox-core';
 import Animate from 'miox-animate';
 import { Engine, Webview, Component, prop, life } from './index';
-
 @Component({
     props: {
         msg: String
@@ -11,7 +10,7 @@ import { Engine, Webview, Component, prop, life } from './index';
 class Button {
     render(h){
         return (
-            <p>button{this.msg}</p>
+            <p v-forward="/list">button{this.msg}</p>
         )
     }
 }
@@ -33,11 +32,13 @@ class A extends Webview {
     }
     
 }
-
 BootStrap(async app => {
-    app.animate(Animate());
-    app.engine(Engine);
+
+    app.set('animate', Animate());
+    app.set('engine', Engine);
     app.use(async ctx => {
-        await ctx.render(A);
+        await ctx.render(Button, {
+            msg: 'hello'
+        });
     })
 });
