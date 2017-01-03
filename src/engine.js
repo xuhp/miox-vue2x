@@ -32,14 +32,6 @@ export default class Engine {
 
                 const web = new webview(Arguments);
 
-                if ( !isComponent && !web.$ctx ) {
-                    Object.defineProperty(web, '$ctx', {
-                        get(){
-                            return ctx;
-                        }
-                    })
-                }
-
                 web.$on('webview:ready', function(){
                     resolve(this);
                 });
@@ -51,6 +43,8 @@ export default class Engine {
 
     install() {
         const ctx = this.ctx;
+
+        Vue.prototype.$ctx = ctx;
         methods.forEach( which => {
             if ( ctx[which] ){
                 Vue.prototype['$' + which] = url => ctx[which](url);
